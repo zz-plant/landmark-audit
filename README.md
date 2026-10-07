@@ -6,7 +6,16 @@ Fetches every route of a server-rendered app and requires each to own exactly on
 
 The skip link is the only way a keyboard or screen-reader user gets past the navigation, and it is one anchor pointed at one id. A duplicated, missing, or nested landmark breaks it silently, on one route, in a way no type check or unit test sees. Layouts, shells, and loading fallbacks all render `<main>` under different conditions, so the only honest check fetches the assembled page.
 
-axe does this on a DOM and needs a browser per route. This runs on served HTML, which a build container can produce without a browser. The part nothing else does: on a streamed App Router route the landmark never reaches the response as markup. It arrives as a flight row, `["$","main",null,{"id":"main-content",…}]`, escaped inside a script. Scanning for `<main>` alone reported half the routes of the app this came from as missing a landmark they had.
+axe-core and html-validate both check single pages, and axe runs browserless inside jsdom. Fed the served HTML of one route, axe catches a duplicate or nested `<main>`. It does not flag a skip link whose target is missing, it reports a page with no `<main>` only as "incomplete", and it cannot see a landmark that arrives in the flight payload. html-validate's `no-multiple-main` covers duplicates, and its reference rule skips `href="#…"`.
+
+This tool covers what those leave out:
+
+- **Every route, not one page.** It discovers App Router pages and fails when a dynamic route has no sample URL.
+- **Streamed landmarks.** On some streamed routes the landmark never reaches the response as markup. It arrives as a flight row, `["$","main",null,{"id":"main-content",…}]`, escaped inside a script. Scanning for `<main>` alone reported half the routes of the app this came from as missing a landmark they had.
+- **Dead in-page anchors, judged across the app.** A `#target` that renders on no route fails; one that renders only on another route, or only in some data state, passes.
+- **Gate semantics.** A route that never answers fails the run, and a route that errored is reported as unknown rather than clean.
+
+If your routes ship their landmark as literal HTML and you only need per-page checks, axe-core in jsdom or html-validate is the better-supported choice.
 
 ## Install
 
