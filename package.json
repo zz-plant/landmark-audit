@@ -3,6 +3,12 @@
   "version": "0.1.0",
   "description": "Fetches every route of a server-rendered app and requires exactly one main landmark and one skip link, reading React flight payloads for streamed routes.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zz-plant/landmark-audit.git"
+  },
+  "homepage": "https://github.com/zz-plant/landmark-audit#readme",
+  "bugs": "https://github.com/zz-plant/landmark-audit/issues",
   "author": "Kanav Jain",
   "type": "module",
   "main": "./dist/index.js",
