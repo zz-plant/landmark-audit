@@ -20,20 +20,7 @@ Auditing 5 routes at http://127.0.0.1:3000 for main-landmark ownership.
   Landmark coverage for these routes is unknown, not clean.
 ```
 
-## Contents
 
-- [Background](#background)
-- [Why this tool](#why-this-tool)
-- [Install](#install)
-- [Quick start](#quick-start)
-- [What it checks](#what-it-checks)
-- [Configuration](#configuration)
-- [CLI reference](#cli-reference)
-- [Using it as a library](#using-it-as-a-library)
-- [How it compares](#how-it-compares)
-- [Limitations](#limitations)
-- [Development](#development)
-- [License](#license)
 
 ## Background
 
